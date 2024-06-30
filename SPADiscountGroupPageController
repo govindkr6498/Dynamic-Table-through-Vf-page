@@ -1,0 +1,45 @@
+public class SPADiscountGroupPageController {
+public SPA_Header__c spaHeaderRecord {get;set;}
+    public String startDate {get;set;}
+    public String endDateDate {get;set;}
+    public List<SPA_Line__c> spaLineRecordList {get;set;}
+    public Map<Id,List<SPA_Line__c>> discountGroupIdSpaLineRecordMap {get;set;}
+    public SPADiscountGroupPageController(){
+        id spaHeaderId = apexpages.currentpage().getparameters().get('recordId');
+        spaHeaderId = 'a0BRT0000011Wjd2AE';
+        spaHeaderRecord = [Select id,Project_Name__c,Effective_Start_Date__c,Effective_End_Date__c,Contract_Type__c,Order_Type__c,Contract_Number__c,Invoice_Destination__c,Price_Zone__c,
+                           Administration_Fee__c,Opportunity__c,Payment_Terms__c,SPIFF_Eligible__c,Freight_On_Board__c,SPIFF_To_Dealer__c,Dealer_Contact_1__c,Dealer_Contact_2__c,Dealer_Contact_3__c,
+                           Other_Contact_1__c,Other_Contact_2__c,Split_SPIFF__c,Currency__c,Primary_Sales_Person__c,Rep_Group__c,Rep_Group_Employee__c  from SPA_Header__c Where id =: spaHeaderId LIMIT 1];
+        DateTime startDateTime = spaHeaderRecord.Effective_Start_Date__c;
+        Date d = startDateTime.date();
+        String dateSplit = String.valueOf(d).split(' ')[0];
+        List<String> dateSplitList = dateSplit.split('-');
+        String formatedDate = dateSplitList[1]+'/'+dateSplitList[2]+'/'+dateSplitList[0];
+        DateTime startEndDateTime = spaHeaderRecord.Effective_End_Date__c;
+        Date endDate = startEndDateTime.date();
+        String dateEndSplit = String.valueOf(endDate).split(' ')[0];
+        List<String> dateEndSplitList = dateEndSplit.split('-');
+        String formatedEndDate = dateEndSplitList[1]+'/'+dateEndSplitList[2]+'/'+dateEndSplitList[0];
+        endDateDate = formatedEndDate;
+        startDate = formatedDate;    
+        List<id> spaDicountgroupIdList = New List<id>();
+        for(SPA_Discount_Group__c sdg : [Select id from SPA_Discount_Group__c where SPA_Header__c =: spaHeaderRecord.Id]){
+            spaDicountgroupIdList.add(sdg.id);
+        }
+        getSpaLineRecords(spaDicountgroupIdList);
+    }
+    public void getSpaLineRecords(List<Id> discountGroupIdList){
+        discountGroupIdSpaLineRecordMap = New Map<Id,List<SPA_Line__c>>();
+        spaLineRecordList = [Select id,SPA_Family__c,Dealer_Discount_Percentage__c,SPA_Discount_Group_Range__r.Amount_Range_From__c,SPA_Discount_Group_Range__r.Amount_Range_To__c,SPA_Discount_Group_Range__r.SPA_Discount_Group__c,Dealer_Services_Fee__c,Dealer_SPIFF_Percentage__c,End_User_Discount_Percentage__c,Other_SPIFF_Percentage__c,Rep_Commission__c from SPA_Line__c Where SPA_Discount_Group_Range__r.SPA_Discount_Group__c IN:discountGroupIdList];
+        for(SPA_Line__c spa : spaLineRecordList){
+            if(!discountGroupIdSpaLineRecordMap.containsKey(spa.SPA_Discount_Group_Range__r.SPA_Discount_Group__c)){
+                discountGroupIdSpaLineRecordMap.put(spa.SPA_Discount_Group_Range__r.SPA_Discount_Group__c,New List<SPA_Line__c>{spa});
+            }else{
+                List<SPA_Line__c> spaLineItemList = discountGroupIdSpaLineRecordMap.get(spa.SPA_Discount_Group_Range__r.SPA_Discount_Group__c);
+                spaLineItemList.add(spa);
+                discountGroupIdSpaLineRecordMap.put(spa.SPA_Discount_Group_Range__r.SPA_Discount_Group__c,spaLineItemList);
+            }
+        }
+        System.debug('discountGroupIdSpaLineRecordMap : '+discountGroupIdSpaLineRecordMap);
+    }
+}
