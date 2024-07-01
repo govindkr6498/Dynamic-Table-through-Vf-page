@@ -111,8 +111,7 @@
                 </thead>
             </table>
             <br/>
-            
-            <table class="tableClass" style="border-collapse: collapse;width:100%;font-weight: bold;font-size: 14px;margin-top:20px; ">
+           <table class="tableClass" style="border-collapse: collapse;width:100%;font-weight: bold;font-size: 14px;margin-top:20px; ">
                 <thead style="border-collapse: collapse;">
                     <tr>
                         <td style="border:black 0.5px solid;border-bottom:none;padding-left: 10px;padding-left: 10px;">Discount Group with Lines</td>
@@ -127,41 +126,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <apex:repeat value="{!spaLineRecordList}" var="spaLine">
-                        <tr style="font-size:14px;">
-                            <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;">{!spaLine.Id}</td>
-                            <td style="border-right:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;">{!spaLine.SPA_Discount_Group_Range__r.Amount_Range_From__c}</td>
-                            <td style="border-right:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;">{!spaLine.SPA_Discount_Group_Range__r.Amount_Range_To__c}</td>
-                            <td style="border-right:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;">{!spaLine.End_User_Discount_Percentage__c}</td>
-                            <td style="border-right:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;">{!spaLine.Dealer_Discount_Percentage__c}</td>
-                            <td style="border-right:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;">{!spaLine.Dealer_SPIFF_Percentage__c}</td>
-                            <td style="border-right:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;">{!spaLine.Other_SPIFF_Percentage__c}</td>
-                            <td style="border-right:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;">{!spaLine.Dealer_Services_Fee__c}</td>
-                            <td style="border-right:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;">{!spaLine.Rep_Commission__c}</td>
-                        </tr>
-                    </apex:repeat>
-                    <tr>
-                        <td colspan="9" style="border-top:black 0.5px solid;"></td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <table class="tableClass" style="border-collapse: collapse;width:100%;font-weight: bold;font-size: 14px;margin-top:20px; ">
-                <thead style="border-collapse: collapse;">
-                    <tr>
-                        <td style="border:black 0.5px solid;border-bottom:none;padding-left: 10px;padding-left: 10px;">Discount Group with Lines</td>
-                        <td style="border-right:black 0.5px solid;border-bottom:none;border-top:black 0.5px solid;padding-left: 10px;">Start Range</td>
-                        <td style="border-right:black 0.5px solid;border-bottom:none;border-top:black 0.5px solid;padding-left: 10px;">End Range</td>
-                        <td style="border-right:black 0.5px solid;border-bottom:none;border-top:black 0.5px solid;padding-left: 10px;">End User Pct</td>
-                        <td style="border-right:black 0.5px solid;border-bottom:none;border-top:black 0.5px solid;padding-left: 10px;">Dealer Pct</td>
-                        <td style="border-right:black 0.5px solid;border-bottom:none;border-top:black 0.5px solid;padding-left: 10px;">Dealer SPIFF </td>
-                        <td style="border-right:black 0.5px solid;border-bottom:none;border-top:black 0.5px solid;padding-left: 10px;">Other SPIFF </td>
-                        <td style="border-right:black 0.5px solid;border-bottom:none;border-top:black 0.5px solid;padding-left: 10px;">DSF % </td>
-                        <td style="border-right:black 0.5px solid;border-bottom:none;border-top:black 0.5px solid;padding-left: 10px;">Rep Com %</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <apex:repeat value="{!discountGroupIdSpaLineRecordMap}" var="key">
+                    <apex:repeat value="{!discountGroupIdSpaLineRecordMap}" var="key">                        
                         <tr style="font-size:14px;">
                             <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 5px;">{!key}</td>
                             <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;"></td>
@@ -174,19 +139,20 @@
                             <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 10px;"></td>
                         </tr>
                         <apex:repeat value="{!discountGroupIdSpaLineRecordMap[key]}" var="spaLine">  
-                            <tr style="font-size:14px;">
-                                <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 40px;">{!spaLine.Id}</td>
-                                <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 40px;">5</td>
-                                <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 40px;">1</td>
-                                <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 40px;">4</td>
-                                 <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 40px;">1</td>
-                                <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 40px;">4</td>
-                                <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 40px;">9</td>
-                                <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 40px;">9</td>
-                                <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 40px;">7</td>
-                                
-                            </tr>
-                        </apex:repeat>                            
+                            <apex:repeat value="{!spaLine}" var="spaLine1">  
+                                <tr style="font-size:14px;">
+                                    <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 40px;">{!spaLine1.Id}</td>
+                                    <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 15px;">{!spaLine1.SPA_Discount_Group_Range__r.Amount_Range_From__c}</td>
+                                	<td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 15px;">{!spaLine1.SPA_Discount_Group_Range__r.Amount_Range_To__c}</td>
+                                    <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 15px;">{!spaLine1.End_User_Discount_Percentage__c}</td>
+                                    <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 15px;">{!spaLine1.Dealer_Discount_Percentage__c}</td>
+                                    <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 15px;">{!spaLine1.Dealer_SPIFF_Percentage__c}</td>
+                                    <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 15px;">{!spaLine1.Other_SPIFF_Percentage__c}</td>
+                                    <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 15px;">{!spaLine1.Dealer_Services_Fee__c}</td>
+                                    <td style="border:black 0.5px solid;border-bottom:none;border-top:none;padding-left: 15px;">{!spaLine1.Rep_Commission__c}</td>
+                                </tr>
+                            </apex:repeat>
+                        </apex:repeat>                        
                     </apex:repeat>
                     <tr>
                         <td colspan="9" style="border-top:black 0.5px solid;"></td>
